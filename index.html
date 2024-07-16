@@ -30,7 +30,7 @@
             border-radius: 5px;
             margin: 10px;
         }
-        
+
         button:hover {
             background-color: #0056b3;
         }
@@ -75,6 +75,7 @@
             try {
                 const directoryHandle = await window.showDirectoryPicker();
                 document.getElementById('output').innerText = 'Selected dir: ' + directoryHandle.name;
+                console.error('Selected dir: ' + directoryHandle.name);
             } catch (error) {
                 console.error('Dir selection error:', error);
                 document.getElementById('output').innerText = 'Dir not selected';
@@ -85,6 +86,7 @@
             try {
                 const [fileHandle] = await window.showOpenFilePicker();
                 document.getElementById('output').innerText = 'Selected file: ' + fileHandle.name;
+                console.error('Selected file: ' + fileHandle.name);
             } catch (error) {
                 console.error('File selection error:', error);
                 document.getElementById('output').innerText = 'File not selected';
@@ -96,6 +98,7 @@
             if (files.length > 0) {
                 const directoryPath = files[0].webkitRelativePath.split('/')[0];
                 document.getElementById('output').innerText = '[LEGACY] Selected dir: ' + directoryPath;
+                console.error('[LEGACY] Selected dir: ' + directoryPath);
             } else {
                 document.getElementById('output').innerText = '[LEGACY] Dir not selected';
             }
@@ -105,6 +108,7 @@
             const file = event.target.files[0];
             if (file) {
                 document.getElementById('output').innerText = '[LEGACY] Selected file: ' + file.name;
+                console.error('[LEGACY] Selected file: ' + file.name);
             } else {
                 document.getElementById('output').innerText = '[LEGACY] File not selected';
             }
