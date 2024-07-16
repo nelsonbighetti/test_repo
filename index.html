@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select file/dir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Select file/dir</h1>
+        <button id="directoryButton">Select dir</button>
+        <button id="fileButton">Select file</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        document.getElementById('directoryButton').addEventListener('click', async () => {
+            try {
+                const directoryHandle = await window.showDirectoryPicker();
+                document.getElementById('output').innerText = 'Selected dir: ' + directoryHandle.name;
+            } catch (error) {
+                console.error('Dir selection error:', error);
+                document.getElementById('output').innerText = 'Dir not selected';
+            }
+        });
+
+        document.getElementById('fileButton').addEventListener('click', async () => {
+            try {
+                const [fileHandle] = await window.showOpenFilePicker();
+                document.getElementById('output').innerText = 'Selected file: ' + fileHandle.name;
+            } catch (error) {
+                console.error('File selection error:', error);
+                document.getElementById('output').innerText = 'File not selected';
+            }
+        });
+    </script>
+</body>
+</html>
