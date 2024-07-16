@@ -30,9 +30,26 @@
             border-radius: 5px;
             margin: 10px;
         }
+        
         button:hover {
             background-color: #0056b3;
         }
+
+        .button_legacy {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #3bcb00;
+            color: #fff;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .button_legacy:hover {
+            background-color: #4bff01;
+        }
+
         #output {
             margin-top: 20px;
             font-size: 16px;
@@ -44,6 +61,12 @@
         <h1>Select file/dir</h1>
         <button id="directoryButton">Select dir</button>
         <button id="fileButton">Select file</button>
+
+        <input type="file" id="directoryPickerLegacy" webkitdirectory directory style="display: none;" />
+        <input type="file" id="filePickerLegacy" style="display: none;" />
+        <button class = "button_legacy" onclick="document.getElementById('directoryPickerLegacy').click()">[LEGACY] Select dir</button>
+        <button class = "button_legacy" onclick="document.getElementById('filePickerLegacy').click()">[LEGACY] Select file</button>
+
         <div id="output"></div>
     </div>
 
@@ -67,6 +90,26 @@
                 document.getElementById('output').innerText = 'File not selected';
             }
         });
+
+        document.getElementById('directoryPickerLegacy').addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                const directoryPath = files[0].webkitRelativePath.split('/')[0];
+                document.getElementById('output').innerText = '[LEGACY] Selected dir: ' + directoryPath;
+            } else {
+                document.getElementById('output').innerText = '[LEGACY] Dir not selected';
+            }
+        });
+
+        document.getElementById('filePickerLegacy').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('output').innerText = '[LEGACY] Selected file: ' + file.name;
+            } else {
+                document.getElementById('output').innerText = '[LEGACY] File not selected';
+            }
+        });
+
     </script>
 </body>
 </html>
