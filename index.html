@@ -58,7 +58,7 @@
 </head>
 <body>
     <div id="container">
-        <h1>Select file/dir (2024/07/16 18:31)</h1>
+        <h1>Select file/dir (2024/07/18 12:18 / view files)</h1>
         <button id="directoryButton">Select dir</button>
         <button id="fileButton">Select file</button>
 
@@ -74,8 +74,17 @@
         document.getElementById('directoryButton').addEventListener('click', async () => {
             try {
                 const directoryHandle = await window.showDirectoryPicker();
-                document.getElementById('output').innerText = 'Selected dir: ' + directoryHandle.name;
+                document.getElementById('output').innerText = 'Selected dir: ' + directoryHandle.name + '\n';
                 console.error('Selected dir: ' + directoryHandle.name);
+                for await (const entry of directoryHandle.values()) {
+                    if (entry.kind === 'file') {
+                        console.error('File:', entry.name);
+                        document.getElementById('output').innerText += 'File:' + entry.name + '\n';
+                    } else if (entry.kind === 'directory') {
+                        console.error('Directory:', entry.name);
+                        document.getElementById('output').innerText += 'File:' + entry.name + '\n';
+                    }
+                }
             } catch (error) {
                 console.error('Dir selection error:', error);
                 document.getElementById('output').innerText = 'Dir not selected';
